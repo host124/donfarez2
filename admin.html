@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DONFAREz - Panel de Administración</title>
+  
+  <!-- Google Fonts: Poppins -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome 6.5.1 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+  <!-- ==============================================
+       PANTALLA DE INICIO DE SESIÓN (LOGIN)
+  ============================================== -->
+  <section id="loginSection" class="login-container">
+    <div class="login-card">
+      <div class="login-header">
+        <div class="brand-logo">
+          <i class="fa-solid fa-boxes-stacked"></i>
+          <span>DONFARE<span class="accent-text">z</span></span>
+        </div>
+        <h2>Acceso Administrativo</h2>
+        <p>Ingresa la contraseña maestra para gestionar la tienda</p>
+      </div>
+
+      <form id="loginForm" onsubmit="event.preventDefault(); login();">
+        <div class="form-group">
+          <label for="loginPassword">
+            <i class="fa-solid fa-lock"></i> Contraseña de Administrador
+          </label>
+          <div class="password-input-wrapper">
+            <input 
+              type="password" 
+              id="loginPassword" 
+              placeholder="••••••••••••" 
+              required 
+              autocomplete="current-password"
+            >
+            <button type="button" class="btn-toggle-pwd" id="togglePasswordBtn" aria-label="Mostrar u ocultar contraseña">
+              <i class="fa-regular fa-eye"></i>
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" id="loginSubmitBtn" class="btn btn-primary btn-block">
+          <i class="fa-solid fa-right-to-bracket"></i> Iniciar Sesión
+        </button>
+
+        <div id="loginErrorMsg" class="login-error-msg" style="display: none;"></div>
+      </form>
+
+      <div class="login-footer">
+        <small><i class="fa-solid fa-shield-halved"></i> Sistema de gestión seguro &bull; DONFAREz &copy; 2026</small>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==============================================
+       PANEL DASHBOARD (TRAS INICIAR SESIÓN)
+  ============================================== -->
+  <div id="dashboardSection" class="dashboard-wrapper" style="display: none;">
+    <!-- Topbar Navigation -->
+    <header class="admin-header">
+      <div class="header-content">
+        <div class="brand-logo">
+          <i class="fa-solid fa-boxes-stacked"></i>
+          <span>DONFARE<span class="accent-text">z</span></span>
+          <span class="badge-role">Admin</span>
+        </div>
+
+        <div class="header-actions">
+          <div class="admin-user-info">
+            <div class="admin-avatar">
+              <i class="fa-solid fa-user-shield"></i>
+            </div>
+            <div class="admin-meta">
+              <span class="admin-name">Administrador</span>
+              <span class="admin-status"><span class="dot-online"></span> En línea</span>
+            </div>
+          </div>
+          <button type="button" class="btn btn-secondary btn-logout" onclick="logout()" title="Cerrar sesión">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+            <span>Cerrar Sesión</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="admin-main">
+      <!-- Title & Action Bar -->
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Gestión de Catálogo</h1>
+          <p class="page-subtitle">Administra los productos, precios, ofertas y disponibilidad de la tienda.</p>
+        </div>
+        <button type="button" class="btn btn-accent btn-lg" onclick="openAddModal()">
+          <i class="fa-solid fa-circle-plus"></i>
+          <span>Agregar Nuevo Producto</span>
+        </button>
+      </div>
+
+      <!-- Stats Cards -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon icon-primary">
+            <i class="fa-solid fa-box-archive"></i>
+          </div>
+          <div class="stat-data">
+            <span class="stat-label">Total de Productos</span>
+            <span class="stat-value" id="statTotalProducts">0</span>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon icon-success">
+            <i class="fa-solid fa-circle-check"></i>
+          </div>
+          <div class="stat-data">
+            <span class="stat-label">Productos Activos</span>
+            <span class="stat-value" id="statActiveProducts">0</span>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon icon-warning">
+            <i class="fa-solid fa-tags"></i>
+          </div>
+          <div class="stat-data">
+            <span class="stat-label">Categorías Registradas</span>
+            <span class="stat-value" id="statCategories">0</span>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-icon icon-danger">
+            <i class="fa-solid fa-percent"></i>
+          </div>
+          <div class="stat-data">
+            <span class="stat-label">Productos en Oferta</span>
+            <span class="stat-value" id="statSaleProducts">0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filters & Search Toolbar -->
+      <div class="card toolbar-card">
+        <div class="toolbar">
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input 
+              type="text" 
+              id="searchInput" 
+              placeholder="Buscar por nombre o descripción..."
+              oninput="handleFilterChange()"
+            >
+            <button type="button" id="clearSearchBtn" onclick="clearSearch()" style="display: none;">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+
+          <div class="filters-group">
+            <div class="filter-item">
+              <label for="categoryFilter"><i class="fa-solid fa-layer-group"></i> Categoría:</label>
+              <select id="categoryFilter" onchange="handleFilterChange()">
+                <option value="all">Todas las categorías</option>
+                <option value="muebles">Muebles</option>
+                <option value="electrodomesticos">Electrodomésticos</option>
+                <option value="tecnologia">Tecnología</option>
+                <option value="hogar">Hogar</option>
+                <option value="cocina">Cocina</option>
+                <option value="jardin">Jardín</option>
+              </select>
+            </div>
+
+            <div class="filter-item">
+              <label for="statusFilter"><i class="fa-solid fa-toggle-on"></i> Estado:</label>
+              <select id="statusFilter" onchange="handleFilterChange()">
+                <option value="all">Todos los estados</option>
+                <option value="active">Activos</option>
+                <option value="inactive">Inactivos</option>
+              </select>
+            </div>
+
+            <button type="button" class="btn btn-secondary btn-icon" onclick="loadProducts()" title="Refrescar catálogo">
+              <i class="fa-solid fa-rotate"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Products Table Section -->
+      <div class="card table-card">
+        <div class="table-container">
+          <table class="products-table">
+            <thead>
+              <tr>
+                <th style="width: 80px;">Visual</th>
+                <th>Producto</th>
+                <th>Categoría</th>
+                <th>Precio Actual</th>
+                <th>Precio Regular</th>
+                <th style="width: 130px; text-align: center;">Estado</th>
+                <th style="width: 140px; text-align: right;">Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="productsTableBody">
+              <!-- Rendered via JS -->
+              <tr>
+                <td colspan="7" class="table-loading">
+                  <i class="fa-solid fa-spinner fa-spin"></i> Cargando productos del catálogo...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Table Footer / Count -->
+        <div class="table-footer">
+          <span id="tableRecordCount">Mostrando 0 productos</span>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- ==============================================
+       MODAL FORMULARIO PRODUCTO (CREAR / EDITAR)
+  ============================================== -->
+  <div id="productModal" class="modal-overlay" style="display: none;" onclick="handleModalBackdropClick(event)">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div class="modal-title-wrap">
+          <i class="fa-solid fa-box-open" id="modalHeaderIcon"></i>
+          <h2 id="modalTitle">Agregar Nuevo Producto</h2>
+        </div>
+        <button type="button" class="btn-close" onclick="closeModal()" aria-label="Cerrar ventana">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <form id="productForm" onsubmit="event.preventDefault(); saveProduct();">
+        <div class="modal-body">
+          <div class="form-grid">
+            
+            <!-- Nombre -->
+            <div class="form-group grid-col-2">
+              <label for="prodName">Nombre del Producto <span class="required">*</span></label>
+              <input type="text" id="prodName" required placeholder="Ej. Sofá Modular Nórdico de 3 Cuerpos">
+            </div>
+
+            <!-- Categoría -->
+            <div class="form-group">
+              <label for="prodCategory">Categoría <span class="required">*</span></label>
+              <select id="prodCategory" required>
+                <option value="" disabled selected>Selecciona una categoría...</option>
+                <option value="muebles">Muebles</option>
+                <option value="electrodomesticos">Electrodomésticos</option>
+                <option value="tecnologia">Tecnología</option>
+                <option value="hogar">Hogar</option>
+                <option value="cocina">Cocina</option>
+                <option value="jardin">Jardín</option>
+              </select>
+            </div>
+
+            <!-- Emoji -->
+            <div class="form-group">
+              <label for="prodEmoji">Emoji representativo <small>(alternativa visual)</small></label>
+              <div class="input-with-icon">
+                <input type="text" id="prodEmoji" maxlength="8" placeholder="🛋️, 📺, 🍳...">
+              </div>
+            </div>
+
+            <!-- Precio de Venta -->
+            <div class="form-group">
+              <label for="prodPrice">Precio de Venta ($ MXN) <span class="required">*</span></label>
+              <div class="input-prefix">
+                <span class="currency-prefix">$</span>
+                <input type="number" id="prodPrice" step="0.01" min="0" required placeholder="0.00">
+              </div>
+            </div>
+
+            <!-- Precio Original -->
+            <div class="form-group">
+              <label for="prodOriginalPrice">Precio Original / Anterior ($ MXN)</label>
+              <div class="input-prefix">
+                <span class="currency-prefix">$</span>
+                <input type="number" id="prodOriginalPrice" step="0.01" min="0" placeholder="0.00 (opcional para ofertas)">
+              </div>
+            </div>
+
+            <!-- Etiqueta / Distintivo -->
+            <div class="form-group">
+              <label for="prodBadge">Distintivo (Badge)</label>
+              <select id="prodBadge" onchange="handleBadgeSelectChange()">
+                <option value="">Ninguno</option>
+                <option value="sale">Oferta (sale)</option>
+                <option value="new">Nuevo (new)</option>
+                <option value="hot">Popular (hot)</option>
+              </select>
+            </div>
+
+            <!-- Texto de Etiqueta Personalizado -->
+            <div class="form-group">
+              <label for="prodBadgeText">Texto personalizado de Etiqueta</label>
+              <input type="text" id="prodBadgeText" placeholder="Ej. ¡25% OFF!, Limitado, Top Ventas">
+            </div>
+
+            <!-- Descripción -->
+            <div class="form-group grid-col-2">
+              <label for="prodDescription">Descripción del Producto</label>
+              <textarea id="prodDescription" rows="3" placeholder="Detalla las características principales, materiales, dimensiones o garantía..."></textarea>
+            </div>
+
+            <!-- Carga de Imagen -->
+            <div class="form-group grid-col-2">
+              <label>Fotografía del Producto</label>
+              <div class="upload-dropzone" id="uploadDropzone">
+                <input type="file" id="prodImage" accept="image/*" onchange="handleImagePreview(this)">
+                
+                <div class="dropzone-content" id="dropzonePrompt">
+                  <div class="dropzone-icon">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                  </div>
+                  <div class="dropzone-text">
+                    <strong>Haz clic aquí</strong> o arrastra una imagen para subir
+                  </div>
+                  <span class="dropzone-hint">Formatos aceptados: JPG, PNG, WEBP, GIF (Máx. 5MB)</span>
+                </div>
+
+                <!-- Preview Area -->
+                <div class="image-preview-container" id="imagePreviewContainer" style="display: none;">
+                  <img id="imagePreview" src="" alt="Vista previa de imagen">
+                  <div class="preview-overlay">
+                    <button type="button" class="btn btn-sm btn-danger" onclick="removeImageSelection(event)">
+                      <i class="fa-solid fa-trash-can"></i> Quitar imagen
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Switch Activo / Inactivo -->
+            <div class="form-group grid-col-2 form-check-toggle">
+              <label class="switch-container">
+                <input type="checkbox" id="prodActive" checked>
+                <span class="switch-slider"></span>
+              </label>
+              <div class="switch-label-wrap">
+                <span class="switch-title">Producto Disponible y Visible</span>
+                <span class="switch-subtitle">Si está desactivado, no aparecerá en el catálogo de clientes de DONFAREz</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" onclick="closeModal()">
+            Cancelar
+          </button>
+          <button type="submit" id="saveProductBtn" class="btn btn-primary">
+            <i class="fa-solid fa-floppy-disk"></i> Guardar Producto
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==============================================
+       MODAL DE CONFIRMACIÓN DE ELIMINACIÓN
+  ============================================== -->
+  <div id="deleteConfirmModal" class="modal-overlay" style="display: none;">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-header modal-header-danger">
+        <div class="modal-title-wrap">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <h2>Confirmar Eliminación</h2>
+        </div>
+      </div>
+      <div class="modal-body">
+        <p>¿Estás seguro de que deseas eliminar permanentemente el producto <strong id="deleteProductName">este producto</strong>?</p>
+        <p class="text-danger-small">Esta acción no se puede deshacer.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="closeDeleteModal()">Cancelar</button>
+        <button type="button" id="confirmDeleteBtn" class="btn btn-danger">
+          <i class="fa-solid fa-trash-can"></i> Eliminar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==============================================
+       TOAST NOTIFICATIONS CONTAINER
+  ============================================== -->
+  <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+  <!-- Javascript -->
+  <script src="admin.js"></script>
+</body>
+</html>
