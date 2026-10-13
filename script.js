@@ -118,7 +118,7 @@ function getCategoryLabel(cat) {
 }
 
 function formatPrice(n) {
-    return '$' + Number(n).toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    return 'S/ ' + Number(n).toLocaleString('es-PE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
 // ========== FILTERS ==========
@@ -364,10 +364,19 @@ function setupEventListeners() {
     cartClose.addEventListener('click', closeCart);
     cartOverlay.addEventListener('click', closeCart);
 
-    // Checkout
+    // Checkout con WhatsApp
     document.getElementById('checkoutBtn').addEventListener('click', () => {
         if (cart.length === 0) return;
-        showToast('¡Gracias por tu compra! Procesando pedido...');
+        let total = 0;
+        let msg = '¡Hola DONFAREz! Deseo realizar el siguiente pedido:%0A%0A';
+        cart.forEach((item, index) => {
+            const subtotal = item.price * item.qty;
+            total += subtotal;
+            msg += `${index + 1}. *${encodeURIComponent(item.name)}* x${item.qty} - ${encodeURIComponent(formatPrice(subtotal))}%0A`;
+        });
+        msg += `%0A*Total:* ${encodeURIComponent(formatPrice(total))}%0A%0APor favor, confirmarme la disponibilidad y opciones de entrega.`;
+        window.open(`https://wa.me/51996664703?text=${msg}`, '_blank');
+        showToast('¡Redirigiendo a WhatsApp para confirmar tu pedido!');
         cart = [];
         saveCart();
         updateCartUI();

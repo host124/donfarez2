@@ -885,17 +885,16 @@ function showToast(msg, type = 'info') {
 }
 
 /**
- * Formatear número como Pesos Mexicanos (MXN)
+ * Formatear número como Soles Peruanos (PEN / S/)
  * @param {number|string} n 
  * @returns {string}
  */
 function formatPrice(n) {
   const num = Number(n) || 0;
-  return new Intl.NumberFormat('es-MX', {
-    style: 'currency',
-    currency: 'MXN',
-    minimumFractionDigits: 2
-  }).format(num);
+  return 'S/ ' + num.toLocaleString('es-PE', {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
 }
 
 /**

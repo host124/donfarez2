@@ -1,7 +1,7 @@
 [
   {
     "id": 1, "name": "Sofá Seccional Moderno", "category": "muebles",
-    "price": 12999, "originalPrice": 18999, "emoji": "🛋️",
+    "price": 1299, "originalPrice": 1899, "emoji": "🛋️",
     "image": null,
     "rating": 5, "reviews": 128, "badge": "sale", "badgeText": "-32%",
     "description": "Sofá seccional de 3 piezas tapizado en tela premium. Cojines de alta densidad para máximo confort. Incluye cojines decorativos.",
@@ -9,7 +9,7 @@
   },
   {
     "id": 2, "name": "Refrigerador Samsung 22 ft³", "category": "electrodomesticos",
-    "price": 18499, "originalPrice": 24999, "emoji": "🧊",
+    "price": 1849, "originalPrice": 2499, "emoji": "🧊",
     "image": null,
     "rating": 5, "reviews": 256, "badge": "hot", "badgeText": "Popular",
     "description": "Refrigerador French Door con dispensador de agua y hielo. Tecnología Twin Cooling Plus para frescura óptima.",
@@ -17,7 +17,7 @@
   },
   {
     "id": 3, "name": "Smart TV LG 65\" 4K", "category": "tecnologia",
-    "price": 15999, "originalPrice": 21999, "emoji": "📺",
+    "price": 1599, "originalPrice": 2199, "emoji": "📺",
     "image": null,
     "rating": 5, "reviews": 312, "badge": "sale", "badgeText": "-27%",
     "description": "Televisor OLED 4K con WebOS, Dolby Vision y Dolby Atmos. Procesador α9 Gen6 AI para imagen y sonido excepcionales.",
@@ -25,7 +25,7 @@
   },
   {
     "id": 4, "name": "Comedor de Madera 6 Personas", "category": "muebles",
-    "price": 8999, "originalPrice": 12499, "emoji": "🪑",
+    "price": 899, "originalPrice": 1249, "emoji": "🪑",
     "image": null,
     "rating": 4, "reviews": 89, "badge": "new", "badgeText": "Nuevo",
     "description": "Set de comedor en madera de pino con acabado natural. Incluye mesa extensible y 6 sillas ergonómicas.",
@@ -33,7 +33,7 @@
   },
   {
     "id": 5, "name": "Lavadora LG 20 kg", "category": "electrodomesticos",
-    "price": 13499, "originalPrice": 17999, "emoji": "🫧",
+    "price": 1349, "originalPrice": 1799, "emoji": "🫧",
     "image": null,
     "rating": 5, "reviews": 198, "badge": "sale", "badgeText": "-25%",
     "description": "Lavadora de carga frontal con TurboWash 360°. Motor Inverter Direct Drive con 10 años de garantía.",
@@ -41,7 +41,7 @@
   },
   {
     "id": 6, "name": "Lámpara de Pie Nórdica", "category": "hogar",
-    "price": 1899, "originalPrice": 2499, "emoji": "💡",
+    "price": 189, "originalPrice": 249, "emoji": "💡",
     "image": null,
     "rating": 4, "reviews": 67, "badge": "new", "badgeText": "Nuevo",
     "description": "Lámpara de pie estilo nórdico con pantalla de tela. Altura ajustable y base de madera natural.",
@@ -49,7 +49,7 @@
   },
   {
     "id": 7, "name": "Recámara King Size Completa", "category": "muebles",
-    "price": 22999, "originalPrice": 31999, "emoji": "🛏️",
+    "price": 2299, "originalPrice": 3199, "emoji": "🛏️",
     "image": null,
     "rating": 5, "reviews": 145, "badge": "hot", "badgeText": "Popular",
     "description": "Set completo de recámara: cabecera, base, 2 burós y cómoda. Acabado en madera de nogal con detalles modernos.",
@@ -57,7 +57,7 @@
   },
   {
     "id": 8, "name": "Laptop HP Pavilion 15\"", "category": "tecnologia",
-    "price": 16999, "originalPrice": 19999, "emoji": "💻",
+    "price": 1699, "originalPrice": 1999, "emoji": "💻",
     "image": null,
     "rating": 4, "reviews": 203, "badge": "sale", "badgeText": "-15%",
     "description": "Procesador Intel Core i7, 16GB RAM, 512GB SSD. Pantalla Full HD IPS antirreflejos.",
@@ -65,7 +65,7 @@
   },
   {
     "id": 9, "name": "Horno de Microondas Whirlpool", "category": "electrodomesticos",
-    "price": 3499, "originalPrice": 4299, "emoji": "🍕",
+    "price": 349, "originalPrice": 429, "emoji": "🍕",
     "image": null,
     "rating": 4, "reviews": 156, "badge": null, "badgeText": null,
     "description": "Microondas de 1.1 ft³ con grill y convección. 10 niveles de potencia y descongelamiento inteligente.",
@@ -73,7 +73,7 @@
   },
   {
     "id": 10, "name": "Set de Cojines Decorativos", "category": "hogar",
-    "price": 899, "originalPrice": 1299, "emoji": "✨",
+    "price": 89, "originalPrice": 129, "emoji": "✨",
     "image": null,
     "rating": 4, "reviews": 94, "badge": "new", "badgeText": "Nuevo",
     "description": "Set de 4 cojines decorativos en tonos neutros. Tela de alta calidad con cierre invisible.",
@@ -81,7 +81,7 @@
   },
   {
     "id": 11, "name": "Estufa de Gas Mabe 6 Quemadores", "category": "electrodomesticos",
-    "price": 9999, "originalPrice": 13999, "emoji": "🔥",
+    "price": 999, "originalPrice": 1399, "emoji": "🔥",
     "image": null,
     "rating": 5, "reviews": 178, "badge": "sale", "badgeText": "-29%",
     "description": "Estufa de gas con 6 quemadores y horno de gran capacidad. Encendido electrónico y parrillas de hierro fundido.",
@@ -89,7 +89,7 @@
   },
   {
     "id": 12, "name": "Escritorio de Oficina Moderno", "category": "muebles",
-    "price": 5499, "originalPrice": 7499, "emoji": "🖥️",
+    "price": 549, "originalPrice": 749, "emoji": "🖥️",
     "image": null,
     "rating": 4, "reviews": 112, "badge": "hot", "badgeText": "Popular",
     "description": "Escritorio en L con organizador de cables y superficie amplia. Estructura de acero con cubierta de melamina.",
